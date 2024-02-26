@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/electron-vite.animate.svg'
-import './App.css'
+import { useState } from "react";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import "./App.css";
+import App2 from "./App2.tsx";
+import App3 from "./App3.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const routerData = [
+    {
+      path: "/",
+      element: <App2 />,
+    },
+    {
+      path: "/App3",
+      element: <App3 />,
+    },
+  ];
+
+  const router = createHashRouter(
+    routerData.map((route) => ({
+      ...route,
+      element: <App2></App2>,
+    }))
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <main className="flex justify-center items-center min-h-screen min-w-screen bg-slate-300">
+      <RouterProvider router={router} />
+    </main>
+  );
 }
 
-export default App
+export default App;
